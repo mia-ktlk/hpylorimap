@@ -17,6 +17,9 @@ df["lat"] = [float(i) for i in df["lat"]]
 df["lon"] = [float(i) for i in df["lon"]]
 chart_data = df[['lat', 'lon']]
 
+#firstSeries = df.loc[df['column_name'] == some_value]
+#secondSeries = df.loc[df['column_name'] == some_value]
+
 
 st.pydeck_chart(pdk.Deck(
     map_style=None,
