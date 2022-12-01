@@ -17,8 +17,12 @@ df["lat"] = [float(i) for i in df["lat"]]
 df["lon"] = [float(i) for i in df["lon"]]
 chart_data = df[['lat', 'lon']]
 
-#firstSeries = df.loc[df['column_name'] == some_value]
-#secondSeries = df.loc[df['column_name'] == some_value]
+firstSeries = df.loc[df['erad_an'] == 'Yes']
+secondSeries = df.loc[df['erad_an'] == "No"]
+erad = firstSeries[['lat', 'lon', 'erad_an']]
+notErad = secondSeries[['lat', 'lon', 'erad_an']]
+print(erad.head())
+print(notErad.head())
 
 
 st.pydeck_chart(pdk.Deck(
@@ -31,17 +35,16 @@ st.pydeck_chart(pdk.Deck(
     ),
     layers=[
         pdk.Layer(
-           'HexagonLayer',
-           data=chart_data,
+           'ScatterplotLayer',
+           data=erad,
            get_position='[lon, lat]',
-           radius=200,
-           elevation_scale=4,
-           pickable=True,
-           extruded=True,
+            get_color='[100, 30, 0, 160]',
+            get_radius=200,
+
         ),
         pdk.Layer(
             'ScatterplotLayer',
-            data=chart_data,
+            data=notErad,
             get_position='[lon, lat]',
             get_color='[200, 30, 0, 160]',
             get_radius=200,
